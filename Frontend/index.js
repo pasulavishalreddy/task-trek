@@ -65,7 +65,7 @@ function validateForm() {
 
 async function gettodos(){
     try {
-        const res = await fetch("http://localhost:5000/todo")
+        const res = await fetch("https://task-trek-o4v0.onrender.com/todo")
         const data = await res.json()
         todosData = data
         const list = document.getElementById("todolist")
@@ -94,7 +94,7 @@ async function addtodo() {
     const tags = tagsInput.split(",").map(tag => tag.trim())
 
     try {
-        const res = await fetch("http://localhost:5000/todo", {
+        const res = await fetch("https://task-trek-o4v0.onrender.com/todo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -137,7 +137,7 @@ async function updatetodo() {
     const tags = tagsInput.split(",").map(tag => tag.trim())
 
     try {
-        const res = await fetch(`http://localhost:5000/todo/${currentId}`, {
+        const res = await fetch(`https://task-trek-o4v0.onrender.com/todo/${currentId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -168,7 +168,7 @@ async function updatetodo() {
 
 async function deleteTodo(id) {
     try {
-        const res = await fetch(`http://localhost:5000/todo/${id}`, {
+        const res = await fetch(`https://task-trek-o4v0.onrender.com/todo/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
