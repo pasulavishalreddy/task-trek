@@ -1,0 +1,427 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-primary:        #534AB7;
+  --color-primary-dark:   #3C3489;
+  --color-primary-light:  #EEEDFE;
+  --color-primary-border: #AFA9EC;
+
+  --color-bg:             #F1EFE8;
+  --color-surface:        #ffffff;
+  --color-surface-muted:  #F8F7F4;
+
+  --color-text:           #2C2C2A;
+  --color-text-muted:     #5F5E5A;
+  --color-text-hint:      #888780;
+
+  --color-border:         rgba(0, 0, 0, 0.10);
+  --color-border-hover:   rgba(0, 0, 0, 0.22);
+
+  --color-done-bg:        #E1F5EE;
+  --color-done-text:      #085041;
+  --color-done-dot:       #1D9E75;
+
+  --color-progress-bg:    #FAEEDA;
+  --color-progress-text:  #633806;
+  --color-progress-dot:   #EF9F27;
+
+  --color-pending-bg:     #F1EFE8;
+  --color-pending-text:   #444441;
+  --color-pending-dot:    #B4B2A9;
+
+  --color-danger:         #E24B4A;
+  --color-danger-hover:   #FCEBEB;
+
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  18px;
+
+  --transition: 0.15s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary:        #7F77DD;
+    --color-primary-dark:   #AFA9EC;
+    --color-primary-light:  #26215C;
+    --color-primary-border: #534AB7;
+
+    --color-bg:             #1a1a18;
+    --color-surface:        #242422;
+    --color-surface-muted:  #2c2c2a;
+
+    --color-text:           #F1EFE8;
+    --color-text-muted:     #B4B2A9;
+    --color-text-hint:      #888780;
+
+    --color-border:         rgba(255, 255, 255, 0.10);
+    --color-border-hover:   rgba(255, 255, 255, 0.22);
+
+    --color-done-bg:        #04342C;
+    --color-done-text:      #9FE1CB;
+    --color-done-dot:       #1D9E75;
+
+    --color-progress-bg:    #412402;
+    --color-progress-text:  #FAC775;
+    --color-progress-dot:   #EF9F27;
+
+    --color-pending-bg:     #2C2C2A;
+    --color-pending-text:   #D3D1C7;
+    --color-pending-dot:    #5F5E5A;
+
+    --color-danger:         #F09595;
+    --color-danger-hover:   #501313;
+  }
+}
+
+body {
+  font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2.5rem 1rem 4rem;
+}
+
+div:has(> #todoForm) {
+  width: 100%;
+  max-width: 540px;
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+}
+
+div:has(> #todoForm)::before {
+  content: "Task board";
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 0.5px solid var(--color-border);
+  letter-spacing: -0.01em;
+}
+
+#todoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+#todoForm br {
+  display: none;
+}
+
+#todoForm span {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  margin-top: 1rem;
+}
+
+#todoForm span:first-child {
+  margin-top: 0;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.15);
+}
+
+.input-error {
+  border: 1.5px solid #e53935 !important;
+  background-color: #fff5f5;
+}
+
+.error{
+  color: #e53935;
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 500;
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.error {
+  display: none;
+  color: red;
+}
+
+#task,
+#tags {
+  width: 100%;
+  height: 40px;
+  padding: 0 13px;
+  font-size: 14px;
+  color: var(--color-text);
+  background: var(--color-surface-muted);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+#task::placeholder,
+#tags::placeholder {
+  color: var(--color-text-hint);
+}
+
+#task:hover,
+#tags:hover {
+  border-color: var(--color-border-hover);
+}
+
+#task:focus,
+#tags:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+  background: var(--color-surface);
+}
+
+#status {
+  width: 100%;
+  height: 40px;
+  padding: 0 36px 0 13px;
+  font-size: 14px;
+  color: var(--color-text);
+  background: var(--color-surface-muted);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888780' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+#status:hover {
+  border-color: var(--color-border-hover);
+}
+
+#status:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+  background-color: var(--color-surface);
+}
+
+button {
+  height: 40px;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 0.5px solid var(--color-border);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background var(--transition), border-color var(--transition),
+              opacity var(--transition), transform 0.1s ease;
+  font-family: inherit;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Add TODO — primary */
+button[onclick="addtodo()"] {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+  margin-top: 1.25rem;
+}
+
+button[onclick="addtodo()"]:hover {
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+/* Update — secondary */
+#updatebtn {
+  background: var(--color-surface);
+  color: var(--color-text);
+  margin-top: 1.25rem;
+  margin-left: 8px;
+}
+
+#updatebtn:hover:not(:disabled) {
+  background: var(--color-surface-muted);
+  border-color: var(--color-border-hover);
+}
+
+#updatebtn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+/* ─── Todo List ──────────────────────────────────────────────── */
+#todolist {
+  list-style: none;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 0.5px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#todolist::before {
+  content: "All tasks";
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-text-hint);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+/* ─── Each list item ─────────────────────────────────────────── */
+#todolist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition: border-color var(--transition), background var(--transition);
+}
+
+#todolist li .actions {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+#todolist li:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-muted);
+}
+
+/* Status dot — applied via JS data attribute ideally, fallback via JS class */
+#todolist li .status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+#todolist li .status-dot.done     { background: var(--color-done-dot); }
+#todolist li .status-dot.progress { background: var(--color-progress-dot); }
+#todolist li .status-dot.pending  { background: var(--color-pending-dot); }
+
+/* Task name */
+#todolist li .todo-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Tags */
+#todolist li .todo-tags {
+  font-size: 12px;
+  color: var(--color-text-hint);
+}
+
+/* Status badge */
+#todolist li .status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+#todolist li .status-badge.done {
+  background: var(--color-done-bg);
+  color: var(--color-done-text);
+}
+
+#todolist li .status-badge.progress {
+  background: var(--color-progress-bg);
+  color: var(--color-progress-text);
+}
+
+#todolist li .status-badge.pending {
+  background: var(--color-pending-bg);
+  color: var(--color-pending-text);
+}
+
+/* Action buttons inside list items */
+#todolist li button {
+  width: 20px;
+  height: 30px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--color-text-hint);
+  font-size: 15px;
+  margin-top: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#todolist li button:hover {
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+#todolist li .editbtn:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+#todolist li #deletebtn:hover {
+  background: var(--color-danger-hover);
+  color: var(--color-danger);
+}
+
+/* ─── Scrollbar (subtle) ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-hover);
+  border-radius: 999px;
+}

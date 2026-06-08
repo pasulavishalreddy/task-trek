@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-Trek</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css"> 
+</head>
+<body>
+    <div>
+        <form id="todoForm">
+            <br>
+            <Span>Project Name:</Span><input placeholder="enter your project name here..." required  id="task"> 
+            <div id="taskError" class="error"></div>
+            <br>
+            <br>
+            <span>Techstack :</span><input placeholder="enter your techstack here..." required type="text" id="tags">
+            <div class="error" id="tagsError" ></div>
+            <br>
+            <br>
+            <span>Status:</span>
+            <select id="status" required>
+                <option value="">Select status</option>
+                <option value="Not yet started">Not yet started</option>
+                <option value="Progress">Progress</option>
+                <option value="done">done</option>
+            </select><br>
+            <div class="error" id="statusError" ></div>
+        </form>
+        <button type="button" id="addtodobtn"onclick="addtodo()">Add TODO</button>
+        <button id="updatebtn" onclick="updatetodo()" disabled>Update</button>
+        <ul id="todolist"></ul>
+    </div>
+        <script src="index.js"></script>
+        <script src="script.js"></script>
+</body>
+
+</html>
